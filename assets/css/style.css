@@ -46,3 +46,12 @@ input {
 section.welcome {
   text-align: center;
 }
+section.quiz {
+  display: none;
+}
+.outcome {
+  display: none;
+}
+section.result {
+  display: none;
+}
