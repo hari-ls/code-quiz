@@ -12,10 +12,38 @@
 <body>
     <!-- Header section: link to highscores & countdown -->
     <header>
-
+        <p><a href="./highscores.html" class="header-link">View Highscores</a></p>
+        <p>Time: <span class="timer"></span></p>
     </header>
-    <!-- Main section: content, q&as & outcome -->
+    <!-- Main section: content, q&as & result -->
     <main>
+        <!-- Welcome section -->
+        <div class="content">
+            <!-- Welcome -->
+            <section class="welcome">
+                <h1 class="title">Coding Quiz Challenge</h1>
+                <p class="message">Try to answer the following code-related questions within the time limit. Keep in
+                    mind
+                    that incorrect answers will penalise your your score/time by ten seconds!</p>
+                <button id="start-quiz">Start Quiz</button>
+            </section>
+            <!-- Q&As -->
+            <section class="quiz">
+                <h2 class="question"></h2>
+                <ol class="options"></ol>
+                <div class="outcome"></div>
+            </section>
+            <!-- Result -->
+            <section class="result">
+                <h2>All done!</h2>
+                <p>Your final score is: <span class="score"></span></p>
+                <form method="post">
+                    <p>Enter initials:</p>
+                    <input type="text" name="initials" id="initials">
+                    <button id="submit">Submit</button>
+                </form>
+            </section>
+        </div>
 
     </main>
     <script src="./assets/js/script.js"></script>
