@@ -21,7 +21,33 @@
             </section>
         </div>
     </main>
-    <script src="./assets/js/script.js"></script>
+    <!-- <script src="./assets/js/script.js"></script> -->
+    <script>
+        var list = document.querySelector("ol");
+        var back = document.querySelector("#back");
+        var clear = document.querySelector("#clear");
+        var viewHighscores = function () {
+            var scores = JSON.parse(localStorage.getItem("scores"));
+            console.log(scores);
+            if (scores) {
+                for (let i = 0; i < scores.length; i++) {
+                    var listItem = document.createElement("li");
+                    // listItem.setAttribute("class", "options");
+                    // listItem.setAttribute("data-option", i);
+                    listItem.textContent = scores[i].initials;
+                    list.appendChild(listItem);
+                }
+            }
+        }
+        var goBack = back.addEventListener("click", function (e) {
+            e.preventDefault();
+        });
+        var clearScores = clear.addEventListener("click", function (e) {
+            e.preventDefault();
+            localStorage.removeItem("scores");
+        });
+        viewHighscores();
+    </script>
 </body>
 
 </html>
