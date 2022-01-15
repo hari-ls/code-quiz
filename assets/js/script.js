@@ -173,6 +173,8 @@ var quizComplete = function () {
       updateScores(initials.value.toUpperCase(), finalScore);
       setScores();
       location.href = "./highscores.html";
+    } else {
+      window.alert("Please add your initials.");
     }
   });
 };
