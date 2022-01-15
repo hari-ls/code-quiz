@@ -38,20 +38,51 @@ button {
 input {
   padding: 5px 10px;
 }
+p {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 /* || Genral Styles */
 .content {
   max-width: 50%;
   margin: 0 auto;
 }
-section.welcome {
+.welcome {
   text-align: center;
 }
-section.quiz {
+.message {
+  margin-bottom: 20px;
+}
+.quiz {
   display: none;
+}
+.answers {
+  display: inline-flex;
+  flex-direction: column;
+}
+.answers p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.option > a {
+  cursor: pointer;
+  background: var(--primary);
+  color: var(--light);
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 .outcome {
   display: none;
 }
-section.result {
+.result {
   display: none;
+}
+.highscores > ol {
+  padding-left: 25px;
+  margin-bottom: 30px;
+  background-color: var(--tertiary);
+}
+.highscores > ol li {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }

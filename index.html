@@ -20,28 +20,28 @@
         <!-- Welcome section -->
         <div class="content">
             <!-- Welcome -->
-            <section class="welcome">
+            <div class="welcome">
                 <h1 class="title">Coding Quiz Challenge</h1>
                 <p class="message">Try to answer the following code-related questions within the time limit. Keep in
                     mind
                     that incorrect answers will penalise your your score/time by ten seconds!</p>
                 <button id="start-quiz">Start Quiz</button>
-            </section>
+            </div>
             <!-- Q&As -->
-            <section class="quiz">
-                <h2 class="query"></h2>
-                <ol class="selection"></ol>
-            </section>
+            <div class="quiz">
+                <section class="question"></section>
+                <section class="answers"></section>
+            </div>
             <!-- Result -->
-            <section class="result">
+            <div class="result">
                 <h2>All done!</h2>
-                <p>Your final score is: <span class="score"></span></p>
+                <p>Your final score is <span id="score"></span>.</p>
                 <form method="post">
-                    <p>Enter initials:</p>
+                    <label>Enter initials:</label>
                     <input type="text" name="initials" id="initials">
                     <button id="submit">Submit</button>
                 </form>
-            </section>
+            </div>
             <div class="outcome"></div>
         </div>
     </main>

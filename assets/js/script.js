@@ -1,19 +1,37 @@
 // Initialise values
 var questionBank = [
   {
-    question: "First question",
-    options: ["one", "two", "three", "four"],
-    answer: 0,
-  },
-  {
-    question: "Second question",
-    options: ["one", "two", "three", "four"],
-    answer: 1,
-  },
-  {
-    question: "Third question",
-    options: ["one", "two", "three", "four"],
+    question:
+      "String values must be enclosed within _____ when being assigned to variables.",
+    options: ["commas", "curly brackets", "quotes", "parentheses"],
     answer: 2,
+  },
+  {
+    question: "Commonly used data types DO NOT include:",
+    options: ["strings", "booleans", "alerts", "numbers"],
+    answer: 2,
+  },
+  {
+    question:
+      "The condition in an if/else statement is enclosed within ______.",
+    options: ["quotes", "curly brackets", "parentheses", "square brackets"],
+    answer: 2,
+  },
+  {
+    question: "Arrays in JavaScript can be used to store _________.",
+    options: [
+      "numbers and strings ",
+      "other arrays",
+      "booleans",
+      "all of the above",
+    ],
+    answer: 3,
+  },
+  {
+    question:
+      "A very useful tool used during development and debugging  content to the debugger is:",
+    options: ["JavaScript ", "terminal / bash", "for loops", "console.log"],
+    answer: 3,
   },
 ];
 
@@ -25,10 +43,11 @@ var start = document.querySelector("#start-quiz");
 var submit = document.querySelector("#submit");
 var clear = document.querySelector("#clear");
 var goBack = document.querySelector("#back");
-var query = document.querySelector(".query");
-var selection = document.querySelector(".selection");
+var question = document.querySelector(".question");
+var answers = document.querySelector(".answers");
 var outcome = document.querySelector(".outcome");
 var timer = document.querySelector(".timer");
+var score = document.querySelector("#score");
 
 // Initialise operators
 var countdown = 100,
@@ -62,20 +81,25 @@ var reverseCountdown = function () {
 };
 // Present the selected question to the user
 var presentQuestion = function (obj) {
-  var question = obj.question;
-  query.textContent = question;
+  var query = obj.question;
+  question.innerHTML = "";
+  var questionText = document.createElement("h2");
+  questionText.textContent = query;
+  question.append(questionText);
   presentOptions(obj);
 };
 // Present the option and check of inputs for the selected question
 var presentOptions = function (obj) {
   var options = obj.options;
-  selection.innerHTML = "";
+  answers.innerHTML = "";
   for (let i = 0; i < options.length; i++) {
-    var listItem = document.createElement("li");
-    listItem.setAttribute("class", "options");
-    listItem.setAttribute("data-option", i);
-    listItem.textContent = options[i];
-    selection.appendChild(listItem);
+    var option = document.createElement("p");
+    option.setAttribute("class", "option");
+    answers.append(option);
+    var optionText = document.createElement("a");
+    optionText.setAttribute("data-option", i);
+    optionText.textContent = i + 1 + ". " + options[i];
+    option.append(optionText);
   }
   // Check selection
   var checkSelection = function (event) {
@@ -85,14 +109,14 @@ var presentOptions = function (obj) {
     var userSelection = userClicked.getAttribute("data-option");
     if (userSelection == obj.answer) {
       presentOutcome(true);
-      selection.removeEventListener("click", checkSelection);
+      answers.removeEventListener("click", checkSelection);
     } else {
       countdown -= 10;
       presentOutcome(false);
-      selection.removeEventListener("click", checkSelection);
+      answers.removeEventListener("click", checkSelection);
     }
   };
-  selection.addEventListener("click", checkSelection);
+  answers.addEventListener("click", checkSelection);
 };
 // Present the outcome based on user selection for the current question
 var presentOutcome = function (bool) {
@@ -117,9 +141,10 @@ var quizComplete = function () {
   quiz.setAttribute("style", "display: none");
   result.setAttribute("style", "display: block");
   clearInterval(countdownTimer);
-  score = countdown;
+  finalScore = countdown;
   timer.textContent = 0;
-  console.log("Your score is " + score);
+  console.log("Your score is " + finalScore);
+  score.textContent = finalScore;
   var getInitials = submit.addEventListener("click", function (event) {
     event.preventDefault();
     // update score
@@ -138,7 +163,10 @@ var initliaseScores = function () {
 var updateScores = function () {};
 
 // initliaseScores();
-var temp = [{ initials: "HS", score: 90 }];
+var temp = [
+  { initials: "HS", score: 90 },
+  { initials: "AS", score: 95 },
+];
 localStorage.setItem("scores", JSON.stringify(temp));
 // presentQuestion(questionBank[0]);
 // presentOptions(questionBank[0]);
