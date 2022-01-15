@@ -1,4 +1,4 @@
-// Initialise values
+// initialise values
 var questionBank = [
   {
     question:
@@ -35,7 +35,7 @@ var questionBank = [
   },
 ];
 
-// Initialise selectors
+// initialise selectors
 var welcome = document.querySelector(".welcome");
 var quiz = document.querySelector(".quiz");
 var result = document.querySelector(".result");
@@ -51,7 +51,7 @@ var score = document.querySelector("#score");
 var initials = document.querySelector("#initials");
 var url = location.href;
 
-// Initialise operators
+// initialise operator variables
 var countdown = 100,
   countdownTimer,
   progress = 0,
@@ -59,7 +59,7 @@ var countdown = 100,
   leaderBoard = [],
   totalQuestions = questionBank.length;
 
-// On start - present questions and options
+// on clicking start - present questions and options
 var startQuiz = start.addEventListener("click", function (event) {
   event.preventDefault();
   welcome.setAttribute("style", "display: none");
@@ -67,7 +67,8 @@ var startQuiz = start.addEventListener("click", function (event) {
   reverseCountdown();
   presentQuestion(questionBank[progress]);
 });
-// Start the countdown timer
+
+// start the countdown timer
 var reverseCountdown = function () {
   timer.textContent = countdown;
   countdownTimer = setInterval(function () {
@@ -81,7 +82,8 @@ var reverseCountdown = function () {
     }
   }, 1000);
 };
-// Present the selected question to the user
+
+// present the question to the user
 var presentQuestion = function (obj) {
   var query = obj.question;
   question.innerHTML = "";
@@ -90,7 +92,8 @@ var presentQuestion = function (obj) {
   question.append(questionText);
   presentOptions(obj);
 };
-// Present the option and check of inputs for the selected question
+
+// present the option and check of inputs for the selected question
 var presentOptions = function (obj) {
   var options = obj.options;
   answers.innerHTML = "";
@@ -109,12 +112,14 @@ var presentOptions = function (obj) {
     progress++;
     var userClicked = event.target;
     var userSelection = userClicked.getAttribute("data-option");
+    // check correct or incorrect and present outcome
     if (userSelection == obj.answer) {
       presentOutcome(true);
       answers.removeEventListener("click", checkSelection);
       setInterval(removeOutcome, 1000);
       proceedFurther();
     } else {
+      // reduce time for incorrect answer
       countdown -= 10;
       presentOutcome(false);
       answers.removeEventListener("click", checkSelection);
@@ -124,7 +129,8 @@ var presentOptions = function (obj) {
   };
   answers.addEventListener("click", checkSelection);
 };
-// Present the outcome based on user selection for the current question
+
+// present the outcome based on user selection for the current question
 var presentOutcome = function (bool) {
   outcome.setAttribute("style", "display: block");
   if (bool) {
@@ -133,9 +139,12 @@ var presentOutcome = function (bool) {
     outcome.textContent = "Wrong!";
   }
 };
+// remove the outcome of the answer selection
 var removeOutcome = function () {
   outcome.setAttribute("style", "display: none");
 };
+
+// present next question - until last
 var proceedFurther = function () {
   if (questionBank[progress]) {
     presentQuestion(questionBank[progress]);
@@ -144,6 +153,7 @@ var proceedFurther = function () {
   }
 };
 
+// update the view, set the final score and countdown
 var quizComplete = function () {
   quiz.setAttribute("style", "display: none");
   result.setAttribute("style", "display: block");
@@ -159,8 +169,7 @@ var quizComplete = function () {
   submit.addEventListener("click", function (event) {
     event.preventDefault();
     if (initials.value) {
-      console.log("submit clicked", initials.value);
-      initliaseScores();
+      initialiseScores();
       updateScores(initials.value.toUpperCase(), finalScore);
       setScores();
       location.href = "./highscores.html";
@@ -168,7 +177,8 @@ var quizComplete = function () {
   });
 };
 
-var initliaseScores = function () {
+// get the scores from local storgae if they exist
+var initialiseScores = function () {
   var storedScores = JSON.parse(localStorage.getItem("scores"));
   if (!storedScores) {
     localStorage.setItem("scores", JSON.stringify(leaderBoard));
@@ -176,9 +186,12 @@ var initliaseScores = function () {
     leaderBoard = storedScores;
   }
 };
+
+// update the leaderboard with new data
 var updateScores = function (str, num) {
   leaderBoard.push({ initials: str, score: num });
 };
+
 // set the scores by sorting and updating the scores in local storage
 var setScores = function () {
   leaderBoard.sort(function (a, b) {
@@ -186,15 +199,3 @@ var setScores = function () {
   });
   localStorage.setItem("scores", JSON.stringify(leaderBoard));
 };
-
-// List for a selection
-
-// Check correct or incorrect and present outcome
-
-// Present next - until last
-
-// Set timer
-
-// Calculate and present result
-
-// Update leaderboard
