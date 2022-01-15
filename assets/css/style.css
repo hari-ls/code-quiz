@@ -1,6 +1,7 @@
 :root {
   --light: #ffffff;
   --dark: #333333;
+  --grey: #9b9b9b;
   --primary: #473468;
   --secondary: #755b97;
   --tertiary: #f0e6f7;
@@ -73,6 +74,11 @@ p {
 }
 .outcome {
   display: none;
+  font-style: italic;
+  color: var(--grey);
+  padding-top: 10px;
+  border-top: 2px solid var(--grey);
+  margin-top: 20px;
 }
 .result {
   display: none;

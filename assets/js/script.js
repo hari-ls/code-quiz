@@ -48,6 +48,8 @@ var answers = document.querySelector(".answers");
 var outcome = document.querySelector(".outcome");
 var timer = document.querySelector(".timer");
 var score = document.querySelector("#score");
+var initials = document.querySelector("#initials");
+var url = location.href;
 
 // Initialise operators
 var countdown = 100,
@@ -110,10 +112,14 @@ var presentOptions = function (obj) {
     if (userSelection == obj.answer) {
       presentOutcome(true);
       answers.removeEventListener("click", checkSelection);
+      setInterval(removeOutcome, 1000);
+      proceedFurther();
     } else {
       countdown -= 10;
       presentOutcome(false);
       answers.removeEventListener("click", checkSelection);
+      setInterval(removeOutcome, 1000);
+      proceedFurther();
     }
   };
   answers.addEventListener("click", checkSelection);
@@ -126,15 +132,16 @@ var presentOutcome = function (bool) {
   } else {
     outcome.textContent = "Wrong!";
   }
-  setInterval(function () {
-    outcome.setAttribute("style", "display: none");
-  }, 1000);
+};
+var removeOutcome = function () {
+  outcome.setAttribute("style", "display: none");
+};
+var proceedFurther = function () {
   if (questionBank[progress]) {
     presentQuestion(questionBank[progress]);
   } else {
     quizComplete();
   }
-  clearInterval();
 };
 
 var quizComplete = function () {
@@ -142,12 +149,22 @@ var quizComplete = function () {
   result.setAttribute("style", "display: block");
   clearInterval(countdownTimer);
   finalScore = countdown;
+  // reset final score to 0 if it is less than 0
+  if (finalScore < 0) {
+    finalScore = 0;
+  }
   timer.textContent = 0;
   console.log("Your score is " + finalScore);
   score.textContent = finalScore;
-  var getInitials = submit.addEventListener("click", function (event) {
+  submit.addEventListener("click", function (event) {
     event.preventDefault();
-    // update score
+    if (initials.value) {
+      console.log("submit clicked", initials.value);
+      initliaseScores();
+      updateScores(initials.value.toUpperCase(), finalScore);
+      setScores();
+      location.href = "./highscores.html";
+    }
   });
 };
 
@@ -158,29 +175,17 @@ var initliaseScores = function () {
   } else {
     leaderBoard = storedScores;
   }
-  console.log(leaderBoard);
 };
-var updateScores = function () {};
-
-// initliaseScores();
-var temp = [
-  { initials: "HS", score: 90 },
-  { initials: "AS", score: 95 },
-];
-localStorage.setItem("scores", JSON.stringify(temp));
-// presentQuestion(questionBank[0]);
-// presentOptions(questionBank[0]);
-// presentOutcome(false);
-
-// setInterval(function () {
-//   presentQuestion(questionBank[1]);
-// }, 5000);
-// setInterval(function () {
-//   presentQuestion(questionBank[2]);
-// }, 10000);
-// setInterval(function () {
-//   quizComplete();
-// }, 10000);
+var updateScores = function (str, num) {
+  leaderBoard.push({ initials: str, score: num });
+};
+// set the scores by sorting and updating the scores in local storage
+var setScores = function () {
+  leaderBoard.sort(function (a, b) {
+    return b.score - a.score;
+  });
+  localStorage.setItem("scores", JSON.stringify(leaderBoard));
+};
 
 // List for a selection
 
