@@ -13,4 +13,4 @@ Design a coding quiz as per the provided User Story, Acceptance Criteria and a r
 
 ## Review
 
-To review the final page from this source code please use the following link: [Click here](https://hari-ls.github.io/code-quiz/)
+To review the final page from this source code please use the following link: [Click here](https://hari-ls.github.io/coding-quiz/)
